@@ -1,0 +1,65 @@
+<div class="form-add container-lg shadow p-3 mb-5 bg-white rounded">
+    <form #addForm="ngForm" (ngSubmit)="addProduct(addForm)">
+        <div class="modal-header">
+            <h4 class="modal-title">Add Product</h4>
+            
+        </div>
+        <div class="modal-body">
+            <div class="form-group">       
+                <label><b>Tên Product</b></label>
+                <input ngModel name="name" type="text" class="form-control" [(ngModel)]="product.name" #name="ngModel" required minlength="4" >
+                <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
+
+                    <div *ngIf="name.errors?.['required']">
+                        <p class="text-err">* Name is required.</p> 
+                    </div>
+                    <div *ngIf="name.errors?.['minlength']">
+                       <p class="text-err"> Name must be at least 4 characters long.</p>
+                    </div>
+                
+                </div>
+                
+            </div>
+            <div class="form-group">
+            <label><b>Mô tả</b></label>
+            <input  ngModel name="description" type="email" class="form-control" [(ngModel)]="product.description" #description="ngModel" required minlength="4">
+                <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert">
+
+                    <div *ngIf="description.errors?.['required']">
+                        <p class="text-err">* Ten tham so is required.</p> 
+                    </div>
+                    <div *ngIf="description.errors?.['minlength']">
+                    <p class="text-err"> Ten tham so must be at least 4 characters long.</p>
+                    </div>
+                
+                </div>
+            </div>
+            <div class="form-group">
+            <label><b>Giá</b> </label>
+            <input ngModel name="costPrice" class="form-control" required>
+            </div>
+            <div class="form-group">
+            <label><b>Số Lượng</b></label>
+            <textarea ngModel name="currentQuantity" type="text" class="form-control" required></textarea>
+            </div>
+            <div class="form-group">
+            <label><b>Thể loại</b></label>
+            <select class="form-control" [(ngModel)]="product.category" name="category">
+                <option *ngFor="let category of categories" [ngValue]="category">{{ category.name }}</option>
+            </select>
+            </div>
+            <div class="form-group">
+            <label><b>Nhà cung cấp</b></label>
+            <select class="form-control" [(ngModel)]="product.supplier" name="supplier">
+                <option *ngFor="let supplier of suppliers" [ngValue]="supplier">{{ supplier.name }}</option>
+            </select>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel" routerLink="">
+            <!-- <input type="submit"  class="btn btn-success" data-dismiss="modal" value="Add" routerLink=""> -->
+            <input type="submit" [disabled]="addForm.invalid" (click)="addProduct(addForm)" class="btn btn-success" data-dismiss="modal" value="Add" routerLink="">
+        </div>
+    </form>
+</div>
